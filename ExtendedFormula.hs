@@ -129,6 +129,7 @@ promote = (. baseFormula)
 Implement the function eliminate, which removes a literal assumed to be
 true from an extended formula. At key level, this means that:
 
+
 * All clauses containing the literal disappear.
 * All occurrences of the literal's complement in the remaining clauses disappear.
 
@@ -144,13 +145,13 @@ Examples:
 >>> eliminate 1 $ toExtendedFormula [[1, 2], [-1, 3]]
 fromList [(fromList [3],fromList [-1,3])]
 
-Above, the clause {1, 2} disappears, and from the clause {-1, 3} the literal -1
-disappears.
+Above, the clause {1, 2} disappears, and from the clause { -1, 3} the literal
+(-1) disappears.
 
 >>> eliminate (-1) $ toExtendedFormula [[1, 2], [-1, 3]]
 fromList [(fromList [2],fromList [1,2])]
 
-Above, the clause {-1, 3} disappears, and from the clause {1, 2} the literal 1
+Above, the clause { -1, 3} disappears, and from the clause {1, 2} the literal 1
 disappears.
 -}
 eliminate :: Literal -> ExtendedFormula -> ExtendedFormula
@@ -234,7 +235,7 @@ Just (1,fromList [1])
 Just (2,fromList [-1,2])
 
 Above, after removing 1, we get the unit clause {2}, which corresponds to
-the original clause {-1, 2}.
+the original clause { -1, 2}.
 -}
 firstUnitClause :: ExtendedFormula -> Maybe (Literal, Clause)
 firstUnitClause = Set.lookupMin
@@ -293,7 +294,6 @@ NOP => [[-3,-1,2],[-2,1,3]]
 
 Above, the decision is to remove the smallest literal, -3.
 -}
-
 decide :: History -> History
 
 -- decide history = case Set.lookupMin literals of
@@ -399,10 +399,10 @@ Unit {getLiteral = 1, getClause = fromList [1]} => [[-2]]
 NOP => [[-2,-1],[1]]
 
 Above, {1} is initially the only unitary clause, and is removed. Then,
-clause {-2, -1}, which was initially not unitary, becomes unitary
+clause { -2, -1}, which was initially not unitary, becomes unitary
 after removing literal 1 from the formula, and is removed. Once again,
-notice that in the Unit action, the original clause {-2, -1} from which
-the unitary clause {-2} was obtained is stored, not the unitary clause
+notice that in the Unit action, the original clause { -2, -1} from which
+the unitary clause { -2} was obtained is stored, not the unitary clause
 itself. The example demonstrates the necessity of repeated processing
 of the formula.
 -}
@@ -470,7 +470,7 @@ Decide {getLiteral = -4} => [[-3,1,2],[-1],[5]]
 NOP => [[-4,-2,3],[-3,1,2],[-1,4],[4,5]]
 
 Above, we return to the action (Decide (-4)), undoing the effect of
-the more recent actions (Pure (-3)) and (Unit (-1) {-1, 4}). This is
+the more recent actions (Pure (-3)) and (Unit (-1) { -1, 4}). This is
 the first action in the chronological sense that makes the clause {4, 5}
 become unitary. It would have remained unitary after the more recent
 actions (Unit (-1) { -1, 4}) and (Pure (-3)), but we want to go back as

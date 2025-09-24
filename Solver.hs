@@ -129,7 +129,7 @@ NOP => [[-1],[1,2]]
 -----
 Just (fromList [-1,2])
 
-Above, two Unit actions satisfy the formula, and the interpretation is {-1, 2}.
+Above, two Unit actions satisfy the formula, and the interpretation is { -1, 2}.
 
 >>> RV $ satisfy $ toFormula [[1, 2, 3], [2, -3], [-1]]
 Pure {getLiteral = 2} => []
@@ -138,7 +138,7 @@ NOP => [[-3,2],[-1],[1,2,3]]
 -----
 Just (fromList [-1,2])
 
-Above, the existence of the unitary clause {-1} first imposes the related
+Above, the existence of the unitary clause { -1} first imposes the related
 action, after which it is possible to eliminate the pure literal 2, which
 satisfies the formula.
 
